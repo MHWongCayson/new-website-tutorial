@@ -12,7 +12,27 @@ class Category(models.Model):
     
     def __str__ (self):
         return self.name
-    
+
+# where data is created
+class Book(models.Model):
+    category = models.ForeignKey(Category, related_name='book', on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField()
+    author = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    price = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
+    thumbnail = models.ImageField(upload_to='uploads/', blank=True, null=True)
+
+    # reverse order in admin
+    class Meta:
+        ordering = ('-created_at',)
+
+    # print the title of the book when called
+    def __str__ (self):
+        return self.title
+
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

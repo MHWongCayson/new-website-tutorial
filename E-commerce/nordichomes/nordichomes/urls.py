@@ -5,7 +5,7 @@ from django.urls import path
 
 from cart.views import add_to_cart
 from core.views import frontpage, shop, signup, login
-from product.views import product
+from product.views import product, book
 
 urlpatterns = [
     path('', frontpage, name='frontpage'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('shop/<slug:slug>/', product, name='product'),
     path('add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
     path('admin/', admin.site.urls),
+    # create a url, and the get the view function, and a reference is set
+    path('book/', book, name='book')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
